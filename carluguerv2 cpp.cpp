@@ -1,10 +1,14 @@
+#include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+#define NR 100
 typedef struct
 {
 	long int numero;
 	char nome[60];		/* Palavras ligadas. Ex: Carlos_Marinho */		
 	char morada[60];
-	int BI/CC;
-	int carta de condução;		/* 0=livre	1=ocupado	*/
+	int BI_CC;
+	int carta_de_conducao;		/* 0=livre	1=ocupado	*/
 }cliente;
 typedef struct
 {
@@ -13,13 +17,14 @@ typedef struct
 	char matric[60];
 	int cilindrada;
 	int ano_de_aquis;
-	char modelo
-	int valor_dia
-	int combustivel
-	Kms
-	preço_de_aquis
+	char modelo;
+	int valor_dia;
+	int combustivel;
+	float Kms;
+	float preco_de_aquis;
 			
-}auto;
+}automovel;
+typedef automovel AUTOMOVEIS[NR];
 typedef struct
 {
 	long int ident_auto;
@@ -27,22 +32,22 @@ typedef struct
 	char data_inicio[60];
 	int data_fim;
 	int Km_percorridos;
-	int preço_final;
-	int registo_acidentes
+	int preco_final;
+	int registo_acidentes;
 }aluguer;
-void lerauto(auto *x)
+void lerauto(AUTOMOVEIS *x)
 {
 	FILE *f;
 	int n;
 	if(!(f=fopen("c:\\auto.txt","r")))
 	{
 		printf("Erro na Abertura de Leitura <Enter para Sair>");
-		getch(); exit(0);
+		getch();
+        exit(0);
 	}
 	for(n=1;n<NR;n++)
 	{
-		fscanf(f,"%ld\n%s\n%d\n%d\n", &x[n].numero,x[n].nome,
-					      &x[n].nota, &x[n].estado);
+		fscanf(f,"%ld\n%s\n%d\n", &((*x)[n].numero),&((*x)[n].nome),&((*x)[n].automovel));
 	}
 	fclose(f);
 	printf("\n\n\nFicheiro Lido <Enter para Continuar>");getch();
@@ -196,7 +201,7 @@ int eliminarcliente(cliente *x)
 	int n;
 	long int eli;
 	system("cls");
-	printf("Qual o Numero do aluno que quer Eliminar? "); scanf("%ld",&eli);
+	printf("Qual a informação de cliente que quer Eliminar? "); scanf("%ld",&eli);
 	for(n=1;n<NR;n++)
 	{
 		if(x[n].numero==eli)
