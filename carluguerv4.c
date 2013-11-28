@@ -49,7 +49,7 @@ void lerauto(AUTOMOVEIS *x)
 	}
 	for(n=1;n<NR;n++)
 	{
-		fscanf(f,"%ld\n%s\n%d\n", &((*x)[n].numero),&((*x)[n].nome),&((*x)[n].automovel));
+		fscanf(f,"%ld\n%s\n%d\n", &((*x)[n].estado),&((*x)[n].numero),&((*x)[n].marca),&((*x)[n].modelo),&((*x)[n].cor),&((*x)[n].cilindrada),&((*x)[n].ano_de_aquis),&((*x)[n].matric),&((*x)[n].valor_dia),&((*x)[n].combustivel),&((*x)[n].Kms),&((*x)[n].preco_de_aquis));
 	}
 	fclose(f);
 	printf("\n\n\nFicheiro Lido <Enter para Continuar>");getch();
@@ -61,7 +61,7 @@ void mostrarauto(auto *x)
 	system ("cls");
 	for(n=1;n<NR;n++)
 	{
-		if(x[n].estado!==0) /* Como todos os carros têm um numero o zero é um carro inexistente */
+		if(x[n].estado!==0) /* Como todos os carros tï¿½m um numero o zero ï¿½ um carro inexistente */
 		{
 			printf("NUMERO=%d\nMARCA=%c\nMODELO=&c\nCOR=%c\nCILINDRADA=%d\nANO_DE_AQUIS=%d\nMATRIC=%c\nVALOR_DIA=%c\nCOMBUSTIVEL=%f\nKMS=%f\nPRECO_DE_AQUIS=%f\n\n",
 			x[n].numero,x[n].marca,x[n].modelo,x[n].cor,x[n].cilindrada,x[n].ano_de_aquis,x[n].matric,x[n].valor_dia,x[n].combustivel,x[n].Kms,x[n].preco_de_aquis);
@@ -75,15 +75,25 @@ int inserirauto(auto *x)
 	int n;
 	long int inser;
 	system ("cls");
-	printf("Qual o automóvel que pretende inserir? ");
+	printf("Qual o automï¿½vel que pretende inserir? ");
 	scanf("%d",&inser);
 	for(n=1;n<NR;n++)
 	{
 		if(x[n].estado!=1)
 		{
 			x[n].numero=inser;
-			printf("\n\nNOME=?");scanf("%s", x[n].nome);
-			printf("\n\nNOTA=?");scanf("%d", &x[n].nota);
+			printf("\n\nESTADO=?");scanf("%s", x[n].estado);
+			printf("\n\nNUMERO=?");scanf("%s", x[n].numero);
+			printf("\n\nMARCA=?");scanf("%s", x[n].marca);
+			printf("\n\nMODELO=?");scanf("%s", x[n].modelo);
+			printf("\n\nCOR=?");scanf("%s", x[n].cor);
+			printf("\n\nCILINDRADA=?");scanf("%s", x[n].cilindrada);
+			printf("\n\nANO_DE_AQUIS=?");scanf("%s", x[n].ano_de_aquis);
+			printf("\n\nMATRIC=?");scanf("%s", x[n].matric);
+			printf("\n\nVALOR_DIA=?");scanf("%s", x[n].valor_dia);
+			printf("\n\nCOMBUSTIVEL=?");scanf("%s", x[n].combustivel);
+			printf("\n\nKMS=?");scanf("%s", x[n].Kms);
+			printf("\n\nPRECO_DE_AQUIS=?");scanf("%s", x[n].preco_de_aquis);
 			x[n].estado=1;
 			printf("\n\n\nRegisto Inserido <Enter para Continuar>");
 			getch();
@@ -104,8 +114,8 @@ int eliminarauto(auto *x)
 	{
 		if(x[n].numero==eli)
 		{
-			printf("\n\nNUMERO=%ld\nNOME=%s\nNOTA=%d\nESTADO=%d\n\n",
-			x[n].numero,x[n].nome,x[n].nota,x[n].estado);
+			printf("\n\nNUMERO=%d\nMARCA=%c\nMODELO=&c\nCOR=%c\nCILINDRADA=%d\nANO_DE_AQUIS=%d\nMATRIC=%c\nVALOR_DIA=%c\nCOMBUSTIVEL=%f\nKMS=%f\nPRECO_DE_AQUIS=%f\n\n",
+			x[n].numero,x[n].marca,x[n].modelo,x[n].cor,x[n].cilindrada,x[n].ano_de_aquis,x[n].matric,x[n].valor_dia,x[n].combustivel,x[n].Kms,x[n].preco_de_aquis);
 			printf("\n\nQuer mesmo eliminar? <S/N>");confere=getch();
 
 			if (confere!='S' && confere!='s')    return(0);
@@ -134,8 +144,7 @@ void gravarauto(auto *x)
 	{
 		if(x[n].estado==1)
 		{
-			fprintf(f,"%ld\n%s\n%d\n%d\n",x[n].numero,x[n].nome,
-						      x[n].nota, x[n].estado);
+			fprintf(f,"%d\n%c\n%c\n%c\n%d\n%d\n%c\n%c\n%f\n%f\n%f\n",x[n].numero,x[n].marca,x[n].modelo,x[n].cor,x[n].cilindrada,x[n].ano_de_aquis,x[n].matric,x[n].valor_dia,x[n].combustivel,x[n].Kms,x[n].preco_de_aquis);
 		}
 	}
 	fclose(f);
@@ -152,23 +161,22 @@ void lercliente(cliente *x)
 	}
 	for(n=1;n<NR;n++)
 	{
-		fscanf(f,"%ld\n%s\n%d\n%d\n", &x[n].numero,x[n].nome,
-					      &x[n].nota, &x[n].estado, &x[n].carta_de_conducao);
+		fscanf(f,"%ld\n%c\n%c\n%d\n%d\n&d\n", &x[n].numero, &x[n].nome, &x[n].morada, &x[n].BI_CC, &x[n].carta_de_conducao, &x[n].estado);
 	}
 	fclose(f);
 	printf("\n\n\nFicheiro Lido <Enter para Continuar>");getch();
 }
 
-void mostrarcliente(cliente *x)
+void mostrarcliente(cliente *x) 
 {
 	int n;
 	system ("cls");
 	for(n=1;n<NR;n++)
 	{
-		if(x[n].nome!=="")
+		if(x[n].nome!=="") /* ??? */
 		{
-			printf("NUMERO=%ld\nNOME=%s\nNOTA=%d\nESTADO=%d\n\n",
-			x[n].numero,x[n].nome,x[n].nota, x[n].estado);
+			printf("\n\nNUMERO=%ld\nNOME=%c\nMORADA=%c\nBI_CC=%d\nCARTA_DE_CONDUCAO=%d\nESTADO=%d\n\n",
+			&x[n].numero, &x[n].nome, &x[n].morada, &x[n].BI_CC, &x[n].carta_de_conducao, &x[n].estado);
 		}
 	}
 	printf("\n\n\nListagem Concluida <Enter para Continuar>");getch();
@@ -179,15 +187,19 @@ int inserircliente(cliente *x)
 	int n;
 	long int inser;
 	system ("cls");
-	printf("Qual o Numero do aluno que quer Inserir? ");
+	printf("Qual o Numero do aluno que quer Inserir? "); /* [Necessita ser modificado] */
 	scanf("%ld",&inser);
 	for(n=1;n<NR;n++)
 	{
 		if(x[n].estado!=1)
 		{
 			x[n].numero=inser;
-			printf("\n\nNOME=?");scanf("%s", x[n].nome);
-			printf("\n\nNOTA=?");scanf("%d", &x[n].nota);
+			printf("\n\nNUMERO=?");scanf("%ld", x[n].numero);
+			printf("\n\nNOME=?");scanf("%c", x[n].nome);
+			printf("\n\nMORADA=?");scanf("%c", &x[n].morada);
+			printf("\n\nBI_CC=?");scanf("%d", &x[n].BI_CC);
+			printf("\n\nCARTA_DE_CONDUCAO=?");scanf("%d", &x[n].carta_de_conducao);
+			printf("\n\nESTADO=?");scanf("%d", &x[n].estado);
 			x[n].estado=1;
 			printf("\n\n\nRegisto Inserido <Enter para Continuar>");
 			getch();
@@ -203,13 +215,13 @@ int eliminarcliente(cliente *x)
 	int n;
 	long int eli;
 	system("cls");
-	printf("Qual a informação de cliente que quer Eliminar? "); scanf("%ld",&eli);
+	printf("Qual a informacao do cliente que quer eliminar? "); scanf("%ld",&eli);
 	for(n=1;n<NR;n++)
 	{
 		if(x[n].numero==eli)
 		{
-			printf("\n\nNUMERO=%ld\nNOME=%s\nNOTA=%d\nESTADO=%d\n\n",
-			x[n].numero,x[n].nome,x[n].nota,x[n].estado);
+			printf("\n\nNUMERO=%ld\nNOME=%c\nMORADA=%c\nBI_CC=%d\nCARTA_DE_CONDUCAO=%d\nESTADO=%d\n\n",
+			&x[n].numero, &x[n].nome, &x[n].morada, &x[n].BI_CC, &x[n].carta_de_conducao, &x[n].estado);
 			printf("\n\nQuer mesmo eliminar? <S/N>");confere=getch();
 
 			if (confere!='S' && confere!='s')    return(0);
@@ -238,14 +250,13 @@ void gravarcliente(cliente *x)
 	{
 		if(x[n].estado==1)
 		{
-			fprintf(f,"%ld\n%s\n%d\n%d\n",x[n].numero,x[n].nome,
-						      x[n].nota, x[n].estado);
+			fprintf(f,"%ld\n%c\n%c\n%d\n%d\n&d\n", &x[n].numero, &x[n].nome, &x[n].morada, &x[n].BI_CC, &x[n].carta_de_conducao, &x[n].estado);
 		}
 	}
 	fclose(f);
 	printf("\n\n\nFicheiro Gravado <Enter para Continuar>"); getch();
 }
-void lerrent(rent *x)
+void lerrent(rent *x) /* VariÃ¡veis??? */
 {
 	FILE *f;
 	int n;
@@ -340,10 +351,10 @@ void main(void) /* Inicio do programa */
 	cls;
    printf ("menu inicial");
    printf ("1- Cliente");
-   printf ("2- Automóveis");
-   printf ("3­ Aluguer");
+   printf ("2- Automï¿½veis");
+   printf ("3ï¿½ Aluguer");
    printf ("4- Pesquisas");
-   printf ("5- Estatistícas"); 
+   printf ("5- Estatistï¿½cas"); 
    printf ("6- Terminar / Sair"); 
    scanf (menu_inicial);
    		while menu_inicial=1
@@ -352,14 +363,14 @@ void main(void) /* Inicio do programa */
    			printf ("menu cliente");
    			printf ("1- listar clientes");
    			printf ("2- Novo cliente");
-   			printf ("3­ Alterar cliente");
+   			printf ("3ï¿½ Alterar cliente");
    			printf ("4- Apagar cliente");
    			printf ("5- Voltar ao menu inicial"); 
    			scanf (menu_cliente);
-   			lercliente(client); break;  /* chamar a função lercliente para copiar todo o conteudo do ficheiro de clientes para o array client */
+   			lercliente(client); break;  /* chamar a funï¿½ï¿½o lercliente para copiar todo o conteudo do ficheiro de clientes para o array client */
    				while menu_cliente=1
    				{
-   					mostrarcliente(client); break;   /* chamar a função mostrarcliente que envia psrs o ecran a listagem de todos os clientes */
+   					mostrarcliente(client); break;   /* chamar a funï¿½ï¿½o mostrarcliente que envia psrs o ecran a listagem de todos os clientes */
    					menu_cliente==0;	   
    				}
    				while menu cliente=2
@@ -384,11 +395,11 @@ void main(void) /* Inicio do programa */
    		while menu_inicial=2
    		{	
    			cls
-   			printf ("menu do automóvel");
-   			printf ("1- listar automóvel");
-   			printf ("2- Novo automóvel");
-   			printf ("3­ Alterar automóvel");
-   			printf ("4- Apagar automóvel");
+   			printf ("menu do automï¿½vel");
+   			printf ("1- listar automï¿½vel");
+   			printf ("2- Novo automï¿½vel");
+   			printf ("3ï¿½ Alterar automï¿½vel");
+   			printf ("4- Apagar automï¿½vel");
    			printf ("5- Voltar ao menu inicial"); 
    			scanf (menu_auto);
    			lerauto(car); break;
@@ -443,7 +454,7 @@ void main(void) /* Inicio do programa */
 			cls;
    			printf ("menu das pesquisas");
    			printf ("1- pesquisa por cliente");
-   			printf ("2- pesquisa por automóvel");
+   			printf ("2- pesquisa por automï¿½vel");
    			printf ("3- pesquisa do aluguer por data");
    			printf ("4- pesquisa do aluguer por carro");
    			printf ("5- pesquisa do aluguer por cliente");
@@ -462,17 +473,17 @@ void main(void) /* Inicio do programa */
    		while menu_inicial=5
    		{
    			cls;
-   			printf  ("menu das estatísticas");
-   			printf  ("1- veículo com mais alugueres");
-   			printf  ("2- veículo com mais Km's");
-   			printf  ("3- veículo com maior número de acidentes");
-   			printf  ("4- média das distancias percorridas");
+   			printf  ("menu das estatï¿½sticas");
+   			printf  ("1- veï¿½culo com mais alugueres");
+   			printf  ("2- veï¿½culo com mais Km's");
+   			printf  ("3- veï¿½culo com maior nï¿½mero de acidentes");
+   			printf  ("4- mï¿½dia das distancias percorridas");
    			printf  ("5- maior viagem em termos de distancias");
-   			printf  ("6- Número médio de dias de aluguer por veículo");
-   			printf  ("7- Número de dias que cada veículo esteve parado");
+   			printf  ("6- Nï¿½mero mï¿½dio de dias de aluguer por veï¿½culo");
+   			printf  ("7- Nï¿½mero de dias que cada veï¿½culo esteve parado");
    			printf  ("8- Cliente que fez mais alugueres");
-   			printf  ("9- Cliente que percorreu maior distância"); 
-   			printf  ("10- Cliente com maior número de acidentes");
+   			printf  ("9- Cliente que percorreu maior distï¿½ncia"); 
+   			printf  ("10- Cliente com maior nï¿½mero de acidentes");
    			printf  ("11- Voltar ao menu principal");
    			scanf (menu_estatisticas);
    				while menu_estatisticas=1
