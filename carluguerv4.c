@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include <conio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #define NR 101
 typedef struct
 {
@@ -204,9 +204,9 @@ int pesquisacarro(automovel *x)
         return(0);
 }
 
-main(void) /* Inicio do programa */ 
+int main(void) /* Inicio do programa */ 
 {
-        char op; /* */
+        char op;
         int menu_inicial;
         int menu_cliente;
         int menu_auto;
@@ -244,7 +244,7 @@ main(void) /* Inicio do programa */
                            printf ("4- Apagar cliente");
                            printf ("5- Voltar ao menu inicial"); 
                            scanf ("%d",&menu_cliente);
-                           lercliente(client); break;  /* chamar a fun??o lercliente para copiar todo o conteudo do ficheiro de clientes para o array client */
+                           lercliente(client); break; /* chamar a fun??o lercliente para copiar todo o conteudo do ficheiro de clientes para o array client */
                                    while (menu_cliente=1)
                                    {
                                            mostrarcliente(client); break;   /* chamar a fun??o mostrarcliente que envia psrs o ecran a listagem de todos os clientes */
@@ -339,7 +339,7 @@ main(void) /* Inicio do programa */
                            system ("cls");
                            printf ("menu das pesquisas");
                            printf ("1- pesquisa por cliente");
-                           printf ("2- pesquisa por autom?vel");
+                           printf ("2- pesquisa por automovel");
                            printf ("3- pesquisa do aluguer por data");
                            printf ("4- pesquisa do aluguer por carro");
                            printf ("5- pesquisa do aluguer por cliente");
@@ -354,12 +354,23 @@ main(void) /* Inicio do programa */
                                    {
                                          pesquisacarro(car); break;
                                          menu_pesquisas==0;
-                                   }  
-								   /*    
+                                   }
                                    while (menu_pesquisas=3)
+                                   {
+                                         pesquisarentdata(rent); break;
+                                         menu_pesquisas==0;
+                                   }
                                    while (menu_pesquisas=4)
+                                   {
+                                         pesquisarentcarro(rent); break;
+                                         menu_pesquisas==0;
+                                   }
                                    while (menu_pesquisas=5)
-                                   while (menu_pesquisas=6) */
+                                   {
+                                         pesquisarentcliente(rent); break;
+                                         menu_pesquisas==0;
+                                   }
+                                   while (menu_pesquisas=6)
                                    {
                                            menu_inicial==0;
                                    }
@@ -396,5 +407,5 @@ main(void) /* Inicio do programa */
                                            }
                    }
   } while (menu_inicial=6); 
-  /*exit(0);*/
+  exit(0);
 }
