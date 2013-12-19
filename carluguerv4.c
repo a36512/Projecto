@@ -29,11 +29,12 @@ typedef struct
 
 typedef struct
 {
+	    int numero;
 		int estado;
         long int ident_auto;
         char ident_cliente[60];                /* Palavras ligadas. Ex: Carlos_Marinho */                
-        char data_inicio[60];
-        int data_fim;
+        char data_inicio[10];
+        char data_fim[10];
         int Km_percorridos;
         int preco_final;
         int registo_acidentes;
@@ -178,7 +179,7 @@ int pesquisacliente(cliente *x)
         {
                 if(x[n].numero==procuracli)
                 {
-                        printf("\n\nNUMERO=%ld\nNOME=%c\nMORADA=%c\nBI_CC=%d\nCARTA_DE_CONDUCAO=%d\nESTADO=%d\n\n",
+                        printf("\n\nNUMERO=%ld\nNOME=%s\nMORADA=%s\nBI_CC=%d\nCARTA_DE_CONDUCAO=%d\nESTADO=%d\n\n",
                         &x[n].numero, &x[n].nome, &x[n].morada, &x[n].BI_CC, &x[n].carta_de_conducao, &x[n].estado);
                        
                 }
@@ -202,6 +203,69 @@ int pesquisacarro(automovel *x)
                 }
         }
         return(0);
+}
+
+void lercliente(cliente *x)
+{
+	FILE *f;
+        int n;
+        if(!(f=fopen("c:\\auto.txt","r")))
+        {
+                printf("Erro na Abertura de Leitura <Enter para Sair>");
+                getch();
+        exit(0);
+        }
+        for(n=1;n<NR;n++)
+        {
+                fscanf(f,"%ld\n%s\n%s\n%d\n%d\n%d\n", 
+                &x[n].numero, &x[n].nome, &x[n].morada, &x[n].BI_CC, &x[n].carta_de_conducao, &x[n].estado);
+        }
+        fclose(f);
+        printf("\n\n\nFicheiro Lido <Enter para Continuar>");getch();
+}
+
+void mostrarrent(aluguer *x)
+{
+        int n;
+        system ("cls");
+        for(n=1;n<NR;n++)
+        {
+                if(x[n].estado!=0) /* Como todos os carros tem um numero o zero e um carro inexistente */
+                
+                {
+                        printf("ESTADO=%d\nIDENT_AUTO=%ld\nIDENT_CLIENTE=&s\nDATA_INICIO=%s\nDATA_FIM=%s\nKM_PERCORRIDOS=%d\nPRECO_FINAL=%d\nREGISTO_ACIDENTES=%d\n\n",
+                        x[n].estado, x[n].ident_auto, x[n].ident_cliente, x[n].data_inicio, x[n].data_fim, x[n].Km_percorridos, x[n].preco_final, x[n].registo_acidentes);
+                }
+        }
+        printf("\n\n\nListagem Concluida <Enter para Continuar>");getch();
+}
+
+int inserirrent(aluguer *x)
+{
+        int n;
+        long int inser;
+        system ("cls");
+        
+        for(n=1;n<NR;n++)
+        {
+                if(x[n].estado!=1)
+                {
+                        printf("\n\nESTADO=?");scanf("%d",x[n].numero);
+                        printf("\n\nESTADO=?");scanf("%d", x[n].estado);
+                        printf("\n\nIDENT_AUTO=?");scanf("%ld", x[n].ident_auto);
+                        printf("\n\nIDENT_CLIENTE=?");scanf("%s", x[n].ident_cliente);
+                        printf("\n\nDATA_INICIO=?");scanf("%s", x[n].data_inicio);
+                        printf("\n\nDATA_FIM=?");scanf("%s", x[n].data_fim);
+                        printf("\n\nKM_PERCORRIDOS=?");scanf("%d", x[n].Km_percorridos);
+                        printf("\n\nPRECO_FINAL=?");scanf("%d", x[n].preco_final);
+                        printf("\n\nREGISTO_ACIDENTES=?");scanf("%d", x[n].registo_acidentes);
+                        x[n].estado=1;
+                        printf("\n\n\nRegisto Inserido <Enter para Continuar>");
+                        getch();
+                        return(1);
+                }
+        }
+        printf("ERRO! Nao foi possivel Inserir"); getch(); return(0);
 }
 
 int main(void) /* Inicio do programa */ 
