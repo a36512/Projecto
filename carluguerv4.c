@@ -77,11 +77,15 @@ void mostrarcliente(cliente *x)
         system ("cls");
         for(n=1;n<NR;n++)
         {
-                if(x[n].estado!=0) /* Como todos os carros tem um numero o zero e um carro inexistente */
+                if(x[n].numero!=-1) /* Como todos os carros tem um numero o zero e um carro inexistente */
                 
                 {
-                        printf("NUMERO=%ld\nNOME=%c\nMORADA=%c\nBI=%d\nCC=%d\nESTADO=%d",
+                        printf("NUMERO=%ld\nNOME=%c\nMORADA=%c\nBI=%d\nCC=%d\nESTADO=%d\n",
                         x[n].numero, x[n].nome, x[n].morada, x[n].bi, x[n].cc, x[n].estado);
+                }
+                else
+                {
+                    n=NR;
                 }
         }
         printf("\n\n\nListagem Concluida <Enter para Continuar>");getch();
@@ -138,7 +142,7 @@ void gravarcliente(cliente *x)
 	printf("\n\n\nFicheiro Gravado <Enter para Continuar>"); getch();
 }
 
-void lercliente(cliente *x)
+void lercliente(cliente *x)  /// função que le os clientes inseridos
 {
 	FILE *f;
         int n, nr;
@@ -154,7 +158,7 @@ void lercliente(cliente *x)
         for(n=0;n<NR;n++)
         {
                 fscanf(f,"%d",&nr);
-                if(nr != -1){
+                if(nr != -1){  ///no caso de o valor do numero ser diferente de -1, valor estabelecido para o fim do ficheiro, 
                       x[n].numero = nr;
                       fscanf(f,"%s\n%s\n%d\n%s\n%d\n", &nome, &morada, &bi, &cc, &est);
                       strcpy(x[n].nome,nome);
@@ -167,7 +171,7 @@ void lercliente(cliente *x)
                            break;
         }
         fclose(f);
-        printf("\n\n\nFicheiro Lido <Enter para Continuar>");
+      
 }
 
 int eliminarcliente(cliente *x)
@@ -204,7 +208,7 @@ void gravarauto(automovel *x)
 {
 	FILE *f;
 	int n;
-	if(!(f=fopen("c:\\alunos.txt","w")))
+	if(!(f=fopen("c:\\auto.txt","w")))
 	{
 		printf("\n\n\nErro na Abertura para Gravar <Enter para Sair>");
 		getch();  exit(0);
@@ -238,7 +242,7 @@ void lerauto(automovel *x)
                 &x[n].estado, &x[n].numero, x[n].marca, x[n].modelo, x[n].cor, &x[n].cilindrada, &x[n].ano_de_aquis, x[n].matric, &x[n].valor_dia, &x[n].combustivel, &x[n].Kms, &x[n].preco_de_aquis);
         }
         fclose(f);
-        printf("\n\n\nFicheiro Lido <Enter para Continuar>");getch();
+     
 }
 
 
@@ -404,7 +408,7 @@ int pesquisacarro(automovel *x)
         return(0);
 }
 
-void lerrent(aluguer *x)
+void lerrent(aluguer *x)  /// função para ler aluguer
 {
 	FILE *f;
 	int n;
@@ -419,16 +423,16 @@ void lerrent(aluguer *x)
 					      &x[n].ident_cliente, &x[n].data_inicio, &x[n].data_fim, &x[n].Km_percorridos, &x[n].preco_final, &x[n].registo_acidentes);
 	}
 	fclose(f);
-	printf("\n\n\nFicheiro Lido <Enter para Continuar>");getch();
+
 }
 
-void mostrarrent(aluguer *x)
+void mostrarrent(aluguer *x) ///função que mostra o aluguer
 {
         int n;
         system ("cls");
         for(n=1;n<NR;n++)
         {
-                if(x[n].estado!=0) /* Como todos os carros tem um numero o zero e um carro inexistente */
+                if(x[n].estado!=0) /// Como todos os carros tem um numero o zero e um carro inexistente
                 
                 {
                         printf("ESTADO=%d\nIDENT_AUTO=%ld\nIDENT_CLIENTE=&s\nDATA_INICIO=%s\nDATA_FIM=%s\nKM_PERCORRIDOS=%d\nPRECO_FINAL=%d\nREGISTO_ACIDENTES=%d\n\n",
@@ -439,17 +443,17 @@ void mostrarrent(aluguer *x)
 }
 
 
-int inserirrent(aluguer *x)
+int inserirrent(aluguer *x)  ///função que define a inserção do aluguer
 {
         int n;
         long int inser;
         system ("cls");
         
-        for(n=1;n<NR;n++)
+        for(n=1;n<NR;n++)   ///ciclo for precore o array x da posição 0 ate NR o valor maximo do array
         {
                 if(x[n].estado!=1)
                 {
-                        printf("\n\nESTADO=?");scanf("%d",x[n].numero);
+                        printf("\n\nESTADO=?");scanf("%d",x[n].numero);   ///envia uma mensagem ao utilizador que vai ler um valor
                         printf("\n\nESTADO=?");scanf("%d", x[n].estado);
                         printf("\n\nIDENT_AUTO=?");scanf("%ld", x[n].ident_auto);
                         printf("\n\nIDENT_CLIENTE=?");scanf("%s", x[n].ident_cliente);
@@ -464,29 +468,29 @@ int inserirrent(aluguer *x)
                         return(1);
                 }
         }
-        printf("ERRO! Nao foi possivel Inserir"); getch(); return(0);
+        printf("ERRO! Nao foi possivel Inserir"); getch(); return(0);  ///mensagem de erro, getch faz uma pausa para o utilizador ver a mensagem, return retorna o valor da função
 }
 
 
 
-int main(void) /* Inicio do programa */ 
+int main(void) /// Inicio do programa, inicio de declaração de variaveis inteiras 
 {
         char op;
-        int menu_inicial;
+        int menu_inicial; /// inicio de declaração de variaveis inteiras
         int menu_cliente;
         int menu_auto;
         int menu_aluguer;
         int menu_pesquisas;
         int menu_estatisticas;
-        int n;
-        cliente client[NR]; /* Criar um array Client do tipo cliente */
-        automovel car[NR];        /*Criar um array car do tipo auto */
-        aluguer rent[NR]; /* Criar um array rent do tipo aluguer */
+        int n;  /// fim de declaração de variaveis inteiras
+        cliente client[NR]; /// Criar um array Client do tipo cliente
+        automovel car[NR];        ///Criar um array car do tipo auto
+        aluguer rent[NR]; /// Cria um array rent do tipo aluguer
         for(n=0;n<NR;n++)
         {        
-                car[n].estado=0;   /* limpa todo o Array de registos de carros*/
-                client[n].estado=0;   /* limpa todo o Array de registos de clientes */
-                rent[n].estado=0;    /* Limpar todo o Array de registos de aluguer */
+                car[n].estado=0;   /// limpa todo o Array de registos de carros
+                client[n].estado=0;   /// limpa todo o Array de registos de clientes
+                rent[n].estado=0;    /// Limpar todo o Array de registos de aluguer
         }
   do
   {
@@ -509,10 +513,10 @@ int main(void) /* Inicio do programa */
                            printf ("4- Apagar cliente\n");
                            printf ("5- Voltar ao menu inicial\n"); 
                            scanf ("%d",&menu_cliente);
-                           lercliente(client);  /* chamar a fun??o lercliente para copiar todo o conteudo do ficheiro de clientes para o array client */
+                           lercliente(client);  /// chamar a fun??o lercliente para copiar todo o conteudo do ficheiro de clientes para o array client
                                    while (menu_cliente==1)
                                    {
-                                           mostrarcliente(client);    /* chamar a fun??o mostrarcliente que envia psrs o ecran a listagem de todos os clientes */
+                                           mostrarcliente(client);    /// chama a fun??o mostrarcliente que envia psrs o ecran a listagem de todos os clientes
                                            menu_cliente==0;           
                                    }
                                    while (menu_cliente==2)
@@ -530,7 +534,7 @@ int main(void) /* Inicio do programa */
                                            eliminarcliente(client);
                                            menu_cliente==0;
                                    }
-                                   while (menu_cliente==5) 
+                                   if (menu_cliente==5) 
                                    {
                                            menu_inicial==0;
                                            menu_cliente==0;
@@ -569,7 +573,7 @@ int main(void) /* Inicio do programa */
                                            eliminarauto(car); break;
                                            menu_auto==0;
                                    }
-                                   while (menu_auto==5) 
+                                   if (menu_auto==5) 
                                    {
                                            menu_inicial==0;
                                            menu_auto==0;
@@ -595,7 +599,7 @@ int main(void) /* Inicio do programa */
                                            inserirrent(rent); break;
                                            menu_auto==0;
                                    }
-                                   while (menu_aluguer==3)
+                                   if (menu_aluguer==3)
                                    {
                                            menu_inicial==0;
                                            menu_aluguer==0;
@@ -637,15 +641,15 @@ int main(void) /* Inicio do programa */
                                          pesquisarentcliente(rent); break;
                                          menu_pesquisas==0;
                                    }*/
-                                   while (menu_pesquisas==6)
+                                   if (menu_pesquisas==6)
                                    {
                                            menu_inicial==0;
                                            menu_pesquisas==0;
                                    }
                    }
-                   while (menu_inicial==5)
+                   while (menu_inicial==5)  ///rotina de apresentação do menu estatisticas
                    {
-                           system ("cls");
+                           system ("cls");  ///Limpa o ecra e apresenta o menu estatisticas                                       
                            printf  ("menu das estatisticas\n");
                            printf  ("1- veiculo com mais alugueres\n");
                            printf  ("2- veiculo com mais Km's\n");
@@ -657,8 +661,8 @@ int main(void) /* Inicio do programa */
                            printf  ("8- Cliente que fez mais alugueres\n");
                            printf  ("9- Cliente que percorreu maior distancia\n"); 
                            printf  ("10- Cliente com maior numero de acidentes\n");
-                           printf  ("11- Voltar ao menu principal\n");
-                           scanf ("%d",&menu_estatisticas);
+                           printf  ("11- Voltar ao menu principal\n");  /// fim da apresentação do menu
+                           scanf ("%d",&menu_estatisticas); ///le a variavel do menu de estatisticas
                                   /* while (menu_estatisticas=1)
                                    while (menu_estatisticas=2)
                                    while (menu_estatisticas=3)
@@ -669,16 +673,16 @@ int main(void) /* Inicio do programa */
                                    while (menu_estatisticas=8)
                                    while (menu_estatisticas=9)
                                    while (menu_estatisticas=10)*/
-                                   while (menu_estatisticas=11) 
+                                   if (menu_estatisticas=11)    ///compara o valor do menu estatisticas a 11
                                            {
-                                                   menu_inicial==0;
-                                                   menu_estatisticas==0;
+                                                   menu_inicial==0;  ///sai da rotina do menu inicial
+                                                   menu_estatisticas==0; ///sai da rotina do menu de estasticas
                                            }
                    }
    }
-   while (menu_inicial!=6);
+   while (menu_inicial!=6); ///Variavel de controlo de fim de programa
   { 
-  exit(0);
+  exit(0); ///Fim de programa, encerra ou termina o programa
 }
 }
 
